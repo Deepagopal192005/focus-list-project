@@ -1,0 +1,149 @@
+:root {
+  --bg: #101a29;
+  --bg-light: #182738;
+  --panel: rgba(94, 137, 143, 0.18);
+  --panel-border: rgba(217, 232, 222, 0.42);
+  --text: #f3f1e9;
+  --muted: #b8c7c5;
+  --accent: #d7e66b;
+  --accent-soft: rgba(215, 230, 107, 0.15);
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 70% 8%, rgba(96, 146, 146, .22), transparent 36%),
+    radial-gradient(ellipse at 10% 95%, rgba(69, 105, 134, .2), transparent 40%),
+    linear-gradient(135deg, #1b2b38 0%, var(--bg) 54%, #0c1523 100%);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  display: grid;
+  place-items: center;
+  padding: 42px 24px;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  background-image: radial-gradient(rgba(255,255,255,.55) .55px, transparent .55px);
+  background-size: 5px 5px;
+  mask-image: linear-gradient(120deg, #000, transparent 70%);
+}
+.page { width: min(1120px, 100%); position: relative; z-index: 1; }
+.project-label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 34px 4px;
+  color: #e5e9df;
+  font: 700 13px/1.2 "Courier New", monospace;
+  letter-spacing: .23em;
+  animation: slide-in .7s ease both;
+}
+.label-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 16px var(--accent); }
+.focus-card {
+  min-height: 440px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--panel-border);
+  border-radius: 26px 26px 38px 26px;
+  background: linear-gradient(130deg, rgba(151, 190, 184, .23), rgba(48, 82, 95, .26) 52%, rgba(22, 48, 65, .4));
+  box-shadow: 0 28px 80px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.13);
+  backdrop-filter: blur(18px);
+  animation: card-arrive .9s cubic-bezier(.2,.75,.2,1) both;
+}
+.card-glow {
+  position: absolute; z-index: -1;
+  width: 420px; height: 420px; right: -120px; top: -220px;
+  background: rgba(179, 216, 193, .12); filter: blur(12px); border-radius: 50%;
+}
+.card-content { padding: clamp(32px, 6vw, 70px) clamp(24px, 6vw, 72px) 44px; }
+.eyebrow {
+  margin-bottom: 40px;
+  font: 700 clamp(12px, 1.5vw, 16px)/1.4 "Courier New", monospace;
+  letter-spacing: .16em;
+  color: #e2e8de;
+}
+.eyebrow span { color: var(--accent); padding: 0 5px; }
+.task-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.task { animation: task-arrive .55s ease both; }
+.task:nth-child(2) { animation-delay: .12s; }
+.task:nth-child(3) { animation-delay: .24s; }
+.task-label {
+  display: flex; align-items: center; gap: 20px;
+  width: fit-content; cursor: pointer; user-select: none;
+}
+.task-label input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.custom-check {
+  width: 42px; height: 42px; flex: 0 0 42px;
+  display: grid; place-items: center;
+  border: 2px solid rgba(232, 238, 219, .8);
+  border-radius: 11px;
+  color: var(--accent);
+  font-size: 26px; font-weight: 500;
+  transform: rotate(-4deg);
+  transition: background .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
+}
+.custom-check span { transform: rotate(4deg); line-height: 1; }
+.task-label:hover .custom-check { transform: rotate(0) scale(1.05); box-shadow: 0 0 18px rgba(215,230,107,.12); }
+.task-label input:focus-visible + .custom-check { outline: 3px solid #fff; outline-offset: 4px; }
+.task-label input:checked + .custom-check { background: var(--accent-soft); border-color: var(--accent); }
+.task-text {
+  font-size: clamp(18px, 2.1vw, 27px);
+  font-weight: 750; letter-spacing: -.025em;
+  color: #f1eee7;
+  transition: opacity .2s ease, color .2s ease;
+}
+.task.completed .task-text { color: #e8e9df; }
+.progress-area { margin-top: 38px; }
+.progress-track {
+  height: 7px; width: 100%;
+  background: rgba(217, 229, 219, .17);
+  border-radius: 99px; overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.14);
+}
+.progress-fill {
+  display: block; height: 100%; width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d8e76c, #c6dc65);
+  box-shadow: 0 0 18px rgba(215,230,107,.25);
+  transition: width .5s cubic-bezier(.2,.7,.2,1);
+}
+.progress-caption {
+  display: flex; justify-content: space-between; gap: 12px;
+  margin-top: 13px; color: rgba(231, 237, 224, .65);
+  font: 11px/1.4 "Courier New", monospace; letter-spacing: .12em;
+}
+#progress-percent { color: var(--accent); }
+.corner-mark { position: absolute; width: 22px; height: 22px; border-color: var(--accent); opacity: .7; }
+.corner-top { top: 15px; right: 15px; border-top: 1px solid; border-right: 1px solid; }
+.corner-bottom { bottom: 15px; left: 15px; border-bottom: 1px solid; border-left: 1px solid; }
+.page-footer {
+  display: flex; align-items: center; gap: 14px;
+  margin: 24px 4px 0; color: rgba(223,232,224,.5);
+  font: 10px/1.5 "Courier New", monospace; letter-spacing: .14em;
+}
+.footer-line { flex: 1; height: 1px; background: rgba(223,232,224,.16); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@keyframes card-arrive { from { opacity: 0; transform: translateY(22px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes slide-in { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes task-arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) {
+  body { padding: 30px 16px; }
+  .project-label { margin-bottom: 22px; font-size: 11px; }
+  .focus-card { min-height: 0; border-radius: 20px 20px 28px 20px; }
+  .card-content { padding: 34px 22px 30px; }
+  .eyebrow { margin-bottom: 32px; }
+  .task-list { gap: 19px; }
+  .task-label { gap: 14px; }
+  .custom-check { width: 36px; height: 36px; flex-basis: 36px; border-radius: 9px; font-size: 22px; }
+  .progress-area { margin-top: 32px; }
+  .page-footer { font-size: 8px; gap: 9px; letter-spacing: .08em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

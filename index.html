@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101c2b">
+  <title>Focus List — Your Day, Organized</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="project-label">
+      <span class="label-dot" aria-hidden="true"></span>
+      <span>PROJECT / 003</span>
+    </header>
+
+    <section class="focus-card" aria-labelledby="card-title">
+      <div class="card-glow" aria-hidden="true"></div>
+      <div class="card-content">
+        <div class="eyebrow">YOUR DAY <span>/</span> ORGANIZED</div>
+        <h1 id="card-title" class="sr-only">Focus List</h1>
+
+        <ul class="task-list" id="task-list">
+          <li class="task completed">
+            <label class="task-label">
+              <input type="checkbox" checked>
+              <span class="custom-check" aria-hidden="true"><span>✓</span></span>
+              <span class="task-text">Plan the work</span>
+            </label>
+          </li>
+          <li class="task completed">
+            <label class="task-label">
+              <input type="checkbox" checked>
+              <span class="custom-check" aria-hidden="true"><span>✓</span></span>
+              <span class="task-text">Make progress</span>
+            </label>
+          </li>
+          <li class="task">
+            <label class="task-label">
+              <input type="checkbox">
+              <span class="custom-check" aria-hidden="true"><span>+</span></span>
+              <span class="task-text">Keep learning</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="progress-area">
+          <div class="progress-track" role="progressbar" aria-label="Tasks completed" aria-valuemin="0" aria-valuemax="3" aria-valuenow="2" id="progress-bar">
+            <span class="progress-fill" id="progress-fill"></span>
+          </div>
+          <div class="progress-caption">
+            <span id="progress-message">2 OF 3 TASKS COMPLETE</span>
+            <span id="progress-percent">67%</span>
+          </div>
+        </div>
+      </div>
+      <span class="corner-mark corner-top" aria-hidden="true"></span>
+      <span class="corner-mark corner-bottom" aria-hidden="true"></span>
+    </section>
+
+    <footer class="page-footer">
+      <span>SMALL STEPS. REAL PROGRESS.</span>
+      <span class="footer-line"></span>
+      <span id="today-date"></span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
